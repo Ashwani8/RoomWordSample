@@ -9,6 +9,7 @@ import java.util.List;
 
 // A viewModel is a class whose role is to provide data to the UI and survive
 // configuration changes. it separate the app's data from Activity and fragment.
+
 public class WordViewModel extends AndroidViewModel {
 
     // add a private member variable to hold a reference to the Repository
