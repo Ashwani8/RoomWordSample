@@ -1,5 +1,6 @@
 package com.example.roomwordsample;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -20,7 +21,7 @@ public interface WordDao {
 
 // Create a method that returns a List of Words and Annotate with SQL query that gets all
 // the words from the word_table, sort alphabetically
-    @Query("SELECT * FROM word_table ORDER BY word ASC")
-    List<Word> getAllWords();
+    @Query("SELECT * from word_table ORDER BY word ASC")
+    LiveData<List<Word>> getAllWords(); // wrapped with live data
 
 }
