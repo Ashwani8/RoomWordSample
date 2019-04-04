@@ -11,6 +11,10 @@ import android.view.MenuItem;
 
 // step 1 create Word Class then entity and annotate
 // step 2 create WordDao Data Access Object Interface
+// Step 3 create WordRoomDatabase
+// Step 4 create WordRepository
+// step create the view model
+// web page used https://www.youtube.com/watch?v=BofWWZE1wts
 public class MainActivity extends AppCompatActivity {
 
     @Override

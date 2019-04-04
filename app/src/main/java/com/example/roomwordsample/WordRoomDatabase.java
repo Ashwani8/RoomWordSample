@@ -20,7 +20,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             synchronized (WordRoomDatabase.class){
                 if(INSTANCE == null){
                     // Create database here using Room's database builder to create
-                    // a Roomdatabase object named "word_database" in the application context
+                    // a Room database object named "word_database" in the application context
                     // from the WordRoomDatabase class
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             WordRoomDatabase.class, "word_database")
