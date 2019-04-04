@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+// step 1 create Word Class then entity and annotate
+// step 2 create WordDao Data Access Object Interface
 public class MainActivity extends AppCompatActivity {
 
     @Override
