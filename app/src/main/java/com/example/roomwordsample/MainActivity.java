@@ -3,6 +3,7 @@ package com.example.roomwordsample;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,8 +29,12 @@ import java.util.List;
 // step 7 Create WordListAdapter class
 // Step 9 Add RecylerView to Main activity
 // step 10 populate the database
-// step 11 connect the UI with the data in mainactivity
+// step 11 connect the UI with the data in main activity
+// step 12 create a new activity for adding words
+// step 13 add code to insert a word into the database
+
 public class MainActivity extends AppCompatActivity {
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1; // missing request code
     private WordViewModel mWordViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -89,4 +95,23 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // Insert a word into the database
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && requestCode == RESULT_OK){
+                Word word = new Word(data.getStringExtra(NewWordActivity.EXTRA_REPLY));
+                mWordViewModel.insert(word);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG
+            ).show();
+
+        }
+    }
+
+
+
 }
