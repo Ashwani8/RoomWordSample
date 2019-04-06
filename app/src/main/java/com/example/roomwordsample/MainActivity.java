@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -13,8 +15,11 @@ import android.view.MenuItem;
 // step 2 create WordDao Data Access Object Interface
 // Step 3 create WordRoomDatabase
 // Step 4 create WordRepository
-// step create the view model
+// step 5 create the view model
 // web page used https://www.youtube.com/watch?v=BofWWZE1wts
+// step 6 Add xml layout
+// step 7 Create WordListAdapter class
+// Step 9 Add RecylerView to Main activity
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -23,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Add recycler view
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final WordListAdapter adapter = new WordListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
