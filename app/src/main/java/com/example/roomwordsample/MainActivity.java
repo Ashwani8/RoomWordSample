@@ -1,6 +1,10 @@
 package com.example.roomwordsample;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +15,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 // step 1 create Word Class then entity and annotate
 // step 2 create WordDao Data Access Object Interface
 // Step 3 create WordRoomDatabase
@@ -20,8 +26,10 @@ import android.view.MenuItem;
 // step 6 Add xml layout
 // step 7 Create WordListAdapter class
 // Step 9 Add RecylerView to Main activity
+// step 10 populate the database
+// step 11 connect the UI with the data in mainactivity
 public class MainActivity extends AppCompatActivity {
-
+    private WordViewModel mWordViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,21 @@ public class MainActivity extends AppCompatActivity {
         final WordListAdapter adapter = new WordListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
+
+        // Add an observer on the LiveData returned by getAllWords()
+        // The onChanged() method fires when the observed data changes and the activity is
+        // in the foreground.
+
+        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+            @Override
+            public void onChanged(@Nullable List<Word> words) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setWords(words);
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
