@@ -23,12 +23,16 @@ public interface WordDao {
 
 // Create a method that returns a List of Words and Annotate with SQL query that gets all
 // the words from the word_table, sort alphabetically
-    @Query("SELECT * from word_table ORDER BY word ASC")
-    LiveData<List<Word>> getAllWords(); // wrapped with live data
+
     // LiveData is a data holder class that can be observed within a given lifecycle.
     // Always holds/caches latest version of data. Notifies its active observers when the
     // data has changed. Since we are getting all the contents of the database,
     // we are notified whenever any of the database contents have changed.
+    @Query("SELECT * from word_table ORDER BY word ASC")
+    LiveData<List<Word>> getAllWords(); // wrapped with live data
 
+    // Add a method to get single word
+    @Query("SELECT * from word_table LIMIT 1")
+    Word[] getAnyWord();
 
 }
