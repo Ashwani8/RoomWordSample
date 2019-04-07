@@ -52,4 +52,24 @@ public class WordRepository {
         }
     }
 
+    // Add deleteAll method to the WordRepository and implement an AsyncTAsk to delete all words
+    private static class deleteAllWordsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private WordDao mAsyncTaskDao;
+
+        deleteAllWordsAsyncTask(WordDao dao){
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAll();
+            return null;
+        }
+    }
+
+    // add deleteAll method to invoke AsyncTask above
+    public void deleteAll(){
+        new deleteAllWordsAsyncTask(mWordDao).execute();
+    }
+
 }
