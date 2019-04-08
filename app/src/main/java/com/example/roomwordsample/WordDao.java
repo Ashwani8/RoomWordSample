@@ -35,4 +35,8 @@ public interface WordDao {
     @Query("SELECT * from word_table LIMIT 1")
     Word[] getAnyWord();
 
+    // Add a method to delete one word only
+    @Delete
+    void deleteWord(Word word);
+
 }
